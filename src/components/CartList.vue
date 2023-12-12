@@ -1,5 +1,5 @@
 <template>
-  <div class="cart-popup bg-white border p-4 shadow-lg">
+  <div class="cart-popup bg-gray-900 border p-4 shadow-lg text-white">
     <div v-if="cart.length === 0">
       <h2 class="text-2xl font-semibold mb-4 text-center">
         Your Cart is empty!
@@ -10,10 +10,11 @@
     </div>
     <div v-else>
       <h2 class="text-2xl font-semibold mb-4 text-center">Your Cart</h2>
-      <table class="w-full">
+      <table class="w-full text-left text-white">
         <thead>
+          <!-- Table titles -->
           <tr>
-            <th class="text-left">Movie</th>
+            <th>Movie</th>
             <th class="text-center">Ticket Type</th>
             <th class="text-center">Quantity</th>
             <th class="text-center">Subtotal</th>
@@ -21,6 +22,7 @@
           </tr>
         </thead>
         <tbody>
+          <!-- Table data -->
           <tr v-for="(item, index) in cart" :key="index">
             <td>{{ item.movie.title }}</td>
             <td class="text-center">{{ item.ticketType }}</td>
@@ -43,14 +45,15 @@
           </tr>
         </tbody>
       </table>
-      <hr class="my-4" />
-      <p class="text-gray-700 text-center text-xl">
+      <hr class="my-4 border-white" />
+      <!-- Total Prices -->
+      <p class="text-gray-400 text-center text-xl">
         Cost of Child Tickets: {{ formatMoney(totalChildrenCost) }}
       </p>
-      <p class="text-gray-700 text-center text-xl">
+      <p class="text-gray-400 text-center text-xl">
         Cost of Adult Tickets: {{ formatMoney(totalAdultCost) }}
       </p>
-      <p class="text-gray-700 text-center text-xl">
+      <p class="text-gray-400 text-center text-xl">
         Total Price: {{ formatMoney(totalPrice) }}
       </p>
     </div>
@@ -60,6 +63,7 @@
 <script>
 export default {
   props: {
+    //only thing we need is the cart
     cart: {
       type: Array,
       default: () => [],
@@ -67,16 +71,17 @@ export default {
   },
   emits: ["remove-from-cart"],
   computed: {
+    //always calculates totals
     totalPrice() {
       let total = 0;
       this.cart.forEach((item) => {
+        //if its a child ticket then its $5, otherwise its $10
         total += (item.ticketType === "child" ? 5 : 10) * item.quantity;
       });
       return total;
     },
     totalChildrenCost() {
       let total = 0;
-
       this.cart.forEach((item) => {
         if (item.ticketType === "child") {
           total += 5 * item.quantity;
@@ -95,9 +100,11 @@ export default {
     },
   },
   methods: {
+    //remove is handled in app.vue
     removeFromCart(index) {
       this.$emit("remove-from-cart", index);
     },
+    //format money to USD currency
     formatMoney(amount) {
       return amount.toLocaleString("en-US", {
         style: "currency",

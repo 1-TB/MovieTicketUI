@@ -21,6 +21,7 @@ export default {
     },
   },
   methods: {
+    //tell our parent to show or hide us
     toggleCartPopup() {
       this.$emit("toggle-cart-popup");
     },
@@ -29,8 +30,9 @@ export default {
 </script>
 <template>
   <header
-    class="flex items-center justify-between px-4 py-4 bg-gray-800 shadow"
+    class="flex items-center justify-between px-4 py-4 bg-gray-900 shadow-md"
   >
+  <!-- Using the alamo logo as a placeholder -->
     <img
       src="../assets/logo.svg"
       alt="Alamo Drafthouse Cinema Logo"
@@ -42,18 +44,17 @@ export default {
     <nav>
       <ul class="flex space-x-4">
         <li>
-          <a href="#">
-            <a class="text-white hover:text-blue-500" href="/"> Home </a>
-          </a>
+          <a href="#" class="text-white hover:text-blue-500">Home</a>
         </li>
       </ul>
     </nav>
+
     <div class="relative">
-      <a
-        href="#"
-        class="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2"
+      <button
+        class="inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus:outline-none focus:ring focus:border-blue-300 hover:bg-gray-800 hover:text-blue-500 h-10 px-4 py-2"
         @click="toggleCartPopup"
       >
+      <!-- cart icon -->
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -74,9 +75,10 @@ export default {
         </svg>
         <span
           class="ml-2 text-white bg-red-500 rounded-full h-6 w-6 flex items-center justify-center"
-          >{{ cartCount }}</span
         >
-      </a>
+          {{ cartCount }}
+        </span>
+      </button>
     </div>
   </header>
 </template>

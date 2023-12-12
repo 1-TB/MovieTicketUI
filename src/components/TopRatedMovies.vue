@@ -14,6 +14,8 @@ export default {
   },
   computed: {},
   mounted() {
+    //this is the magic api call to get the top rated movies
+    //the api key is stored in the .env file
     axios
       .get(
         `https://api.themoviedb.org/3/movie/top_rated?api_key=${
@@ -34,12 +36,12 @@ export default {
 </script>
 
 <template>
-  <main class="container mx-auto my-8">
-    <h1 class="text-4xl font-bold mb-6 text-center text-gray-800">
+  <main class="container mx-auto my-8 bg-gray-900 p-6">
+    <h1 class="text-4xl font-bold mb-6 text-center text-white">
       Top Rated Movies
     </h1>
     <div
-      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10"
     >
       <MovieCard
         v-for="movie in movies"
